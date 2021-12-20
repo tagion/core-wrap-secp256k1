@@ -22,7 +22,15 @@ clean-secp256k1: TOCLEAN := $(TOCLEAN_SECP256K1)
 clean-secp256k1: clean
 	@
 
-$(DTMP)/libsecp256k1.a: $(DTMP)/.way 
+$(DTMP)/libsecp256k1.a: $(DTMP)/.way
+	$(PRECMD)$(CP) $(DSRC_SECP256K1) $(DTMP_SECP256K1)
+	@echo "cd $(DTMP_SECP256K1); ./autogen.sh"
+	@echo "cd $(DTMP_SECP256K1); ./configure $(CONFIGUREFLAGS_SECP256K1)"
+	@echo "cd $(DTMP_SECP256K1); make clean"
+	@echo "cd $(DTMP_SECP256K1); make $(SUBMAKE_PARALLEL)"
+	@echo "cd $(DTMP_SECP256K1); mv .libs/libsecp256k1.a $@"
+
+$(DTMP)/libsecp256k1.a-x: $(DTMP)/.way
 	$(PRECMD)$(CP) $(DSRC_SECP256K1) $(DTMP_SECP256K1)
 	$(PRECMD)cd $(DTMP_SECP256K1); ./autogen.sh
 	$(PRECMD)cd $(DTMP_SECP256K1); ./configure $(CONFIGUREFLAGS_SECP256K1)

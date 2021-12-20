@@ -1,7 +1,11 @@
 CONFIGUREFLAGS_SECP256K1 += --enable-ecmult-static-precomputation --enable-experimental --with-asm=arm
 
 export CC=$(CROSS_TOOLCHAIN)/$(MTRIPLE)$(CROSS_ANDROID_API)-clang
+CONFIGUREFLAGS_SECP256K1+= CC=$(CC)
 
+
+test77:
+	echo $(CC)
 # Flags that are likely not needed, but kept as knowledge
 # in case something breaks:
 # export AR=$(CROSS_TOOLCHAIN)/llvm-ar
